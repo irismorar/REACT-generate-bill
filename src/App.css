@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: rgb(221, 221, 205);
+  color: #222;
+}
+
+h1 {
+font-size: 6rem;
+color: red;
+}
+
+.add-product-details-container {
+border: 2px solid blue;
+}
