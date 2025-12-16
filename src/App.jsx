@@ -31,7 +31,7 @@ export default function App() {
             <input
               type="text"
               className="pub-name"
-              placeholder="Type pub name..."
+              placeholder="Type pub's name..."
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   setPubName(event.target.value);
