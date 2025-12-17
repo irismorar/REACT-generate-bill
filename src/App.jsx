@@ -1,6 +1,7 @@
 import "./App.css";
 import { useBillLogic } from "./useBillLogic";
 import { Modal } from "./Modal";
+import { Bill } from "./Bill";
 
 export default function App() {
   const {
@@ -13,25 +14,35 @@ export default function App() {
     setProductPrice,
     appPage,
     setAppPage,
+    tips,
+    setTips,
     modalOn,
     setModalOn,
     pubName,
     setPubName,
     addProduct,
-    editProduct,
+    // editProduct,
+    getProductsSum,
+    getTips,
+    billOn,
+    setBillOn,
   } = useBillLogic();
 
   return (
     <section className="app-container">
-      <h2>Ckeck, please!</h2>
       {appPage === "adding-products" && (
         <>
+          <h2>Ckeck, please!</h2>
           <section className="location">
             <h1>{pubName}</h1>
             <input
               type="text"
               className="pub-name"
+              value={pubName}
               placeholder="Type pub's name..."
+              onChange={(event) => {
+                setPubName(event.target.value);
+              }}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   setPubName(event.target.value);
@@ -42,7 +53,7 @@ export default function App() {
           </section>
           <main>
             <section className="add-items">
-              <ul>
+              <ul className="items-list">
                 {products.map((product) => {
                   const { id, quantity, name, price } = product;
                   return (
@@ -52,9 +63,9 @@ export default function App() {
                       </span>
                       <span
                         className="name-container"
-                        onDoubleClick={(event) => {
-                          editProduct(id, event.target.value);
-                        }}
+                        // onDoubleClick={(event) => {
+                        //   editProduct(id, event.target.value);
+                        // }}
                       >
                         {name}
                       </span>
@@ -113,8 +124,24 @@ export default function App() {
       )}
       {modalOn && appPage === "add-tips" ? (
         <>
+          <h2>Ckeck, please!</h2>
           <h1>{pubName}</h1>
-          <Modal />
+          <Modal
+            tips={tips}
+            setAppPage={setAppPage}
+            setTips={setTips}
+            setBillOn={setBillOn}
+          />
+        </>
+      ) : null}
+      {billOn && appPage === "generate-bill" ? (
+        <>
+          <Bill
+            products={products}
+            tips={tips}
+            getProductsSum={(products) => getProductsSum(products)}
+            getTips={getTips}
+          />
         </>
       ) : null}
     </section>

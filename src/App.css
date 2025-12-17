@@ -50,14 +50,17 @@ h2 {
 }
 
 ul {
-  width: 45rem;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.items-list {
+  width: 45rem;
   border-bottom: 1px solid hsla(0, 100%, 0%, .2);
 }
 
-li {
+.items-list > li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -138,4 +141,41 @@ button:hover {
 
 .modal-message > button:hover {
   background-color: hsla(0, 84%, 17%, .1);
+}
+
+.bill-container {
+  width: 40rem;
+  margin: 0 auto;
+  position: fixed;
+  top: 10rem;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  box-shadow: 10px 5px 5px hsla(0, 100%, 0%, .3);
+  background-color: #fff;
+}
+
+.bill-item {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: .5rem 0;
+}
+
+.separator {
+  border-bottom: 2px dotted hsla(0, 100%, 0%, 1);
+  flex: 1;
+  position: relative;
+  top: -1rem;
+}
+
+.bigger-separator {
+  border-bottom: 2px dashed hsla(0, 100%, 0%, 1);
+  flex: 1;
+  margin: 2rem 0;
+}
+
+.bill-container > div:last-child{
+  margin-top: 1rem;
+  font-size: 3rem;
 }

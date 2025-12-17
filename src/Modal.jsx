@@ -1,7 +1,4 @@
-import { useBillLogic } from "./useBillLogic";
-
-export function Modal() {
-  const { tip, setTip } = useBillLogic();
+export function Modal({ tips, setAppPage, setTips, setBillOn }) {
   return (
     <div className="modal-container">
       <div className="modal-message">
@@ -12,13 +9,20 @@ export function Modal() {
             type="number"
             min="0"
             max="30"
-            value={tip}
+            value={tips}
             onChange={(event) =>
-              tip <= 30 ? setTip(Number(event.target.value)) : setTip(0)
+              tips <= 30 ? setTips(Number(event.target.value)) : setTips(0)
             }
           ></input>
         </div>
-        <button>Generate bill</button>
+        <button
+          onClick={() => {
+            setAppPage("generate-bill");
+            setBillOn(true);
+          }}
+        >
+          Generate bill
+        </button>
       </div>
     </div>
   );
