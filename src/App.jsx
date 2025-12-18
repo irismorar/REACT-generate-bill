@@ -21,7 +21,9 @@ export default function App() {
     pubName,
     setPubName,
     addProduct,
-    // editProduct,
+    editProductKey,
+    productToBeEdited,
+    setProductToBeEdited,
     getProductsSum,
     getTips,
     billOn,
@@ -56,19 +58,67 @@ export default function App() {
               <ul className="items-list">
                 {products.map((product) => {
                   const { id, quantity, name, price } = product;
+
+                  if (id === productToBeEdited) {
+                    return (
+                      <li key={id}>
+                        <input
+                          type="number"
+                          className="editing-input"
+                          min="1"
+                          max="10"
+                          defaultValue={productQuantity}
+                          onKeyUp={(event) => {
+                            if (event.key === "Enter") {
+                              editProductKey(
+                                id,
+                                event.target.value,
+                                "quantity"
+                              );
+                              setProductToBeEdited(null);
+                            }
+                          }}
+                        ></input>
+                        <input
+                          type="text"
+                          className="editing-input"
+                          placeholder="Edit product name..."
+                          defaultValue={productName}
+                          onKeyUp={(event) => {
+                            if (event.key === "Enter") {
+                              editProductKey(id, event.target.value, "name");
+                              setProductToBeEdited(null);
+                            }
+                          }}
+                        ></input>
+                        <input
+                          type="number"
+                          className="editing-input"
+                          min="1"
+                          max="2000"
+                          defaultValue={productPrice}
+                          onKeyUp={(event) => {
+                            if (event.key === "Enter") {
+                              editProductKey(id, event.target.value, "price");
+                              setProductToBeEdited(null);
+                            }
+                          }}
+                        ></input>
+                      </li>
+                    );
+                  }
+
                   return (
-                    <li key={id}>
+                    <li
+                      key={id}
+                      onDoubleClick={() => {
+                        setProductToBeEdited(id);
+                      }}
+                    >
                       <span className="price-quantity-container">
                         {quantity}
                       </span>
-                      <span
-                        className="name-container"
-                        // onDoubleClick={(event) => {
-                        //   editProduct(id, event.target.value);
-                        // }}
-                      >
-                        {name}
-                      </span>
+                      <span className="name-container">{name}</span>
                       <span className="price-quantity-container">{price}</span>
                     </li>
                   );

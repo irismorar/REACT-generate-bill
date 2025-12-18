@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export function useBillLogic() {
   const [appPage, setAppPage] = useState("adding-products"); // adding-products | add-tips | generate-bill
@@ -10,6 +10,7 @@ export function useBillLogic() {
   const [modalOn, setModalOn] = useState(false);
   const [billOn, setBillOn] = useState(false);
   const [tips, setTips] = useState(0);
+  const [productToBeEdited, setProductToBeEdited] = useState(null); // product id
 
   const addProduct = () => {
     if (productQuantity === 0 || productQuantity > 10) {
@@ -37,15 +38,20 @@ export function useBillLogic() {
     setProductPrice(1);
   };
 
-  // const editProduct = useCallback(
-  //   (id, newProduct) => {
-  //     const productsAfterEditing = products.map((product) => {
-  //       return product.id === id ? { ...product, name: newProduct } : product;
-  //     });
-  //     setProducts(productsAfterEditing);
-  //   },
-  //   [products]
-  // );
+  const editProductKey = useCallback(
+    (id, newText, productKey) => {
+      const productAfterEditing = products.map((product) => {
+        return product.id === id
+          ? {
+              ...product,
+              [productKey]: newText,
+            }
+          : product;
+      });
+      setProducts(productAfterEditing);
+    },
+    [products]
+  );
 
   const getProductsSum = (products) => {
     let sum = 0;
@@ -76,10 +82,12 @@ export function useBillLogic() {
     pubName,
     setPubName,
     addProduct,
-    //    editProduct,
+    editProductKey,
     getProductsSum,
     getTips,
     billOn,
     setBillOn,
+    productToBeEdited,
+    setProductToBeEdited,
   };
 }

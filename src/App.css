@@ -179,3 +179,9 @@ button:hover {
   margin-top: 1rem;
   font-size: 3rem;
 }
+
+.editing-input {
+  background-color: rgb(246, 246, 246);
+  color: #222;
+  font-family: inherit;
+}
