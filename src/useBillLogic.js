@@ -6,10 +6,10 @@ export function useBillLogic() {
   const [products, setProducts] = useState([]); // {id, quantity, name, price}
   const [productQuantity, setProductQuantity] = useState(1); // 1-10
   const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState(1); // 1-2000;
+  const [productPrice, setProductPrice] = useState(1); // 1-2000
   const [modalOn, setModalOn] = useState(false);
   const [billOn, setBillOn] = useState(false);
-  const [tips, setTips] = useState(0);
+  const [tips, setTips] = useState(0); // 0-30
   const [productToBeEdited, setProductToBeEdited] = useState(null); // product id
 
   const addProduct = () => {
@@ -38,15 +38,10 @@ export function useBillLogic() {
     setProductPrice(1);
   };
 
-  const editProductKey = useCallback(
-    (id, newText, productKey) => {
+  const editProduct = useCallback(
+    (id, newProduct) => {
       const productAfterEditing = products.map((product) => {
-        return product.id === id
-          ? {
-              ...product,
-              [productKey]: newText,
-            }
-          : product;
+        return product.id === id ? newProduct : product;
       });
       setProducts(productAfterEditing);
     },
@@ -82,7 +77,7 @@ export function useBillLogic() {
     pubName,
     setPubName,
     addProduct,
-    editProductKey,
+    editProduct,
     getProductsSum,
     getTips,
     billOn,

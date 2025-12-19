@@ -2,6 +2,7 @@ import "./App.css";
 import { useBillLogic } from "./useBillLogic";
 import { Modal } from "./Modal";
 import { Bill } from "./Bill";
+import { EditProduct } from "./EditProduct";
 
 export default function App() {
   const {
@@ -21,7 +22,7 @@ export default function App() {
     pubName,
     setPubName,
     addProduct,
-    editProductKey,
+    editProduct,
     productToBeEdited,
     setProductToBeEdited,
     getProductsSum,
@@ -61,50 +62,14 @@ export default function App() {
 
                   if (id === productToBeEdited) {
                     return (
-                      <li key={id}>
-                        <input
-                          type="number"
-                          className="editing-input"
-                          min="1"
-                          max="10"
-                          defaultValue={productQuantity}
-                          onKeyUp={(event) => {
-                            if (event.key === "Enter") {
-                              editProductKey(
-                                id,
-                                event.target.value,
-                                "quantity"
-                              );
-                              setProductToBeEdited(null);
-                            }
-                          }}
-                        ></input>
-                        <input
-                          type="text"
-                          className="editing-input"
-                          placeholder="Edit product name..."
-                          defaultValue={productName}
-                          onKeyUp={(event) => {
-                            if (event.key === "Enter") {
-                              editProductKey(id, event.target.value, "name");
-                              setProductToBeEdited(null);
-                            }
-                          }}
-                        ></input>
-                        <input
-                          type="number"
-                          className="editing-input"
-                          min="1"
-                          max="2000"
-                          defaultValue={productPrice}
-                          onKeyUp={(event) => {
-                            if (event.key === "Enter") {
-                              editProductKey(id, event.target.value, "price");
-                              setProductToBeEdited(null);
-                            }
-                          }}
-                        ></input>
-                      </li>
+                      <EditProduct
+                        key={id}
+                        initialProduct={product}
+                        onChangeProduct={(newProduct) => {
+                          editProduct(id, newProduct);
+                          setProductToBeEdited(null);
+                        }}
+                      />
                     );
                   }
 
